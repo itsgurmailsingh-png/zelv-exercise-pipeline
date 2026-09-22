@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/itsgurmailsingh-png/zelv-exercise-pipeline/data/schema/exercise.schema.json",
+  "title": "Exercise",
+  "type": "object",
+  "required": ["id", "name", "category", "primary_muscles", "equipment", "level", "instructions", "source", "licence"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$",
+      "description": "snake_case, unique across all sources"
+    },
+    "name": { "type": "string" },
+    "aliases": { "type": "array", "items": { "type": "string" }, "default": [] },
+    "category": {
+      "type": "string",
+      "enum": ["strength", "mobility", "yoga", "spine_back", "cardio", "rehab"]
+    },
+    "primary_muscles": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "secondary_muscles": { "type": "array", "items": { "type": "string" }, "default": [] },
+    "equipment": { "type": "array", "items": { "type": "string" }, "default": [] },
+    "level": { "type": "string", "enum": ["beginner", "intermediate", "advanced"] },
+    "contraction_type": {
+      "type": ["string", "null"],
+      "enum": ["isometric", "isotonic", "plyometric", null],
+      "default": null
+    },
+    "instructions": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "coaching_cues": { "type": "array", "items": { "type": "string" }, "default": [] },
+    "common_mistakes": { "type": "array", "items": { "type": "string" }, "default": [] },
+    "contraindications": { "type": "array", "items": { "type": "string" }, "default": [] },
+    "progression_next": { "type": "array", "items": { "type": "string" }, "default": [] },
+    "regression_prev": { "type": "array", "items": { "type": "string" }, "default": [] },
+    "progression_variables": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["hold_time", "rounds", "reps", "load", "range_of_motion", "tempo", "single_leg"]
+      },
+      "default": []
+    },
+    "source": { "type": "string" },
+    "licence": {
+      "type": "object",
+      "required": ["short_name", "full_name"],
+      "properties": {
+        "short_name": { "type": "string" },
+        "full_name": { "type": "string" },
+        "url": { "type": "string" },
+        "author": { "type": ["string", "null"] }
+      }
+    },
+    "animation_id": { "type": ["string", "null"], "default": null }
+  }
+}
